@@ -1,5 +1,5 @@
-const joi = require('joi');
 const Message = require('../models/Message');
+const validators = require('../utils/validations');
 
 async function getMessages(req, res){
     let posts = await Message.find();
@@ -7,6 +7,11 @@ async function getMessages(req, res){
 }
 
 async function postMessages(req, res){
+    let { error } = await validators.validateMessage({...req.body});
+    if(error){
+        return res.send({status: "error", message: error.details[0].message}).status(400);
+    }
+
     let post = new Message({
         ...req.body
     });
