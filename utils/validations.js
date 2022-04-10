@@ -10,4 +10,17 @@ function validateMessage(message){
     return schema.validate(message);
 }
 
+function validateArticle(article){
+    const schema =  new Joi.object({
+        title:Joi.string().max(255).min(5).required(),
+        description: Joi.string().max(600).min(3).required(),
+        content:Joi.string().max(2000).min(100).required(),
+        cover:Joi.string().uri().required(),
+        publish:Joi.bool().required(),
+        enableComments: Joi.bool().required()
+    });
+    return schema.validate(article);
+}
+
 module.exports.validateMessage = validateMessage;
+module.exports.validateArticle = validateArticle;
