@@ -55,8 +55,22 @@ async function deleteArticle(req,res){
     }
 }
 
+async function comment(req,res){
+    // let { error } = await validators.validateComment(req.body);
+    // if(error){
+    //     return res.send({ status: "error", message: error.details[0].message })
+    // }
+    res.send({ status:"succcess", message: " Logic to comment goes hereee.. " });
+}
+
+async function like(req,res){
+    return res.send({ status:"succcess", message: " Logic to like goes hereee.. " });
+}
+
 module.exports.getArticles = getArticles;
 module.exports.getSingleArticle = getSingleArticle;
 module.exports.saveArticle = saveArticle;
 module.exports.updateArticle = updateArticle;
 module.exports.deleteArticle = deleteArticle;
+module.exports.comment = comment;
+module.exports.like = like;

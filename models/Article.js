@@ -7,6 +7,11 @@ const schema = mongoose.Schema({
     cover: String,
     publish: Boolean,
     enableComments: Boolean,
+    comments:[],
+    likes:{
+        type: Number,
+        default: 0    
+    },
     createdAt: {
         type: Date,
         default: Date.now()
