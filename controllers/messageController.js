@@ -1,13 +1,13 @@
-const Message = require('../models/Message');
-const validators = require('../utils/validations');
+import Message from '../models/Message.js';
+import { validateMessage } from '../utils/validations.js';
 
-async function getMessages(req, res){
+export const getMessages = async(req, res)=>{
     let posts = await Message.find();
     res.send({status:"success", data: posts});
 }
 
-async function postMessages(req, res){
-    let { error } = await validators.validateMessage({...req.body});
+export const postMessages = async(req, res)=>{
+    let { error } = await validateMessage({...req.body});
     if(error){
         return res.send({status: "error", message: error.details[0].message}).status(400);
     }
@@ -18,6 +18,3 @@ async function postMessages(req, res){
     await post.save();
     res.send({ status: "success", data: post });
 }
-
-module.exports.getMessages = getMessages;
-module.exports.postMessages = postMessages;

@@ -1,12 +1,12 @@
-const Article = require('../models/Article');
-const validators = require('../utils/validations');
+import Article from '../models/Article.js';
+import { validateArticle } from '../utils/validations.js';
 
-async function getArticles(req,res){
+export const getArticles = async(req,res)=>{
     let articles = await Article.find();
     return res.send({ status:"success", data:articles });
 }
 
-async function getSingleArticle(req,res){
+export const getSingleArticle = async(req,res)=>{
     try{
         let article = await Article.findOne({ _id: req.params.id});
         return res.send({ status: "success", data: article });
@@ -17,8 +17,8 @@ async function getSingleArticle(req,res){
 
 }
 
-async function saveArticle(req,res){
-    let { error } = await validators.validateArticle({ ...req.body });
+export const saveArticle = async(req,res)=>{
+    let { error } = await validateArticle({ ...req.body });
     if(error) return res.send({ status: "error", message: error.details[0].message })
 
     let article = new Article({ ...req.body});
@@ -26,11 +26,11 @@ async function saveArticle(req,res){
     res.send({ status: "success", data: article});
 }
 
-async function updateArticle(req,res){
-    let { error } = await validators.validateArticle({ ...req.body });
+export const updateArticle = async(req,res)=>{
+    let { error } = await validateArticle({ ...req.body });
     if(error) return res.send({ status: "error", message: error.details[0].message })
     try{
-        let article = await Article.findOne({ _id: req.params.id});
+        let article = await findOne({ _id: req.params.id});
         article.title = req.body.title;
         article.description = req.body.description;
         article.content = req.body.content;
@@ -45,7 +45,7 @@ async function updateArticle(req,res){
     }
 }
 
-async function deleteArticle(req,res){
+export const deleteArticle = async(req,res)=>{
     try{
         await Article.findOneAndDelete({ _id: req.params.id});
         return res.send({ status: "success", message: "Article delete successfully" });
@@ -55,7 +55,7 @@ async function deleteArticle(req,res){
     }
 }
 
-async function comment(req,res){
+export const comment = async(req,res)=>{
     // let { error } = await validators.validateComment(req.body);
     // if(error){
     //     return res.send({ status: "error", message: error.details[0].message })
@@ -63,14 +63,6 @@ async function comment(req,res){
     res.send({ status:"succcess", message: " Logic to comment goes hereee.. " });
 }
 
-async function like(req,res){
+export const like = async(req,res)=>{
     return res.send({ status:"succcess", message: " Logic to like goes hereee.. " });
 }
-
-module.exports.getArticles = getArticles;
-module.exports.getSingleArticle = getSingleArticle;
-module.exports.saveArticle = saveArticle;
-module.exports.updateArticle = updateArticle;
-module.exports.deleteArticle = deleteArticle;
-module.exports.comment = comment;
-module.exports.like = like;

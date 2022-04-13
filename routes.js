@@ -1,8 +1,12 @@
-const router = require('express').Router();
-const messageController = require('./controllers/messageController');
-const articleController = require('./controllers/articleController');
-const userController = require('./controllers/userController');
-const auth = require('./middlewares/auth');
+import express from 'express';
+import { getMessages, postMessages } from './controllers/messageController.js';
+import { getArticles, getSingleArticle, 
+        saveArticle, updateArticle, 
+        deleteArticle, comment } from './controllers/articleController.js';
+import { getUsers, login, register } from './controllers/userController.js';
+import auth from './middlewares/auth.js';
+
+const router = express.Router();
 
 // Routes
 /**
@@ -14,7 +18,7 @@ const auth = require('./middlewares/auth');
  *       '200':
  *          description: retrieved messages sucessfully
 */
-router.get("/messages", messageController.getMessages);
+router.get("/messages", getMessages);
 
 /**
  * @swagger
@@ -40,7 +44,7 @@ router.get("/messages", messageController.getMessages);
  *       '201': 
  *          description: message created successfully       
 */
-router.post("/messages", messageController.postMessages);
+router.post("/messages", postMessages);
 
 /**
  * @swagger
@@ -51,7 +55,7 @@ router.post("/messages", messageController.postMessages);
  *       '200':
  *          description: retrieved articles sucessfully
 */
-router.get("/articles", articleController.getArticles);
+router.get("/articles", getArticles);
 /**
  * @swagger
  * /articles/{id}:
@@ -69,7 +73,7 @@ router.get("/articles", articleController.getArticles);
  *          description: a single article
 */
 
-router.get("/articles/:id", articleController.getSingleArticle);
+router.get("/articles/:id", getSingleArticle);
 /**
  * @swagger
  * /articles:
@@ -94,9 +98,9 @@ router.get("/articles/:id", articleController.getSingleArticle);
  *       '201': 
  *          description: message created successfully       
 */
-router.post("/articles", articleController.saveArticle);
+router.post("/articles", saveArticle);
 
-router.patch("/articles/:id", articleController.updateArticle);
+router.patch("/articles/:id", updateArticle);
 /**
  * @swagger
  * /articles/{id}:
@@ -113,12 +117,12 @@ router.patch("/articles/:id", articleController.updateArticle);
  *       '200':
  *          description: deleted successfully
 */
-router.delete("/articles/:id", articleController.deleteArticle);
+router.delete("/articles/:id", deleteArticle);
 
-router.post("/articles/comment", auth, articleController.comment);
+router.post("/articles/comment", auth, comment);
 
-router.get("/users", userController.getUsers);
-router.post("/users/login", userController.login);
-router.post("/users/register", userController.register);
+router.get("/users", getUsers);
+router.post("/users/login", login);
+router.post("/users/register", register);
 
-module.exports = router;
+export default router;
