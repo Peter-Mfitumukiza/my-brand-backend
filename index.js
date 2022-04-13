@@ -3,6 +3,7 @@ config({path: './.env'});
 import './models/db.js';
 import routes from './routes.js';
 import express, { json, urlencoded } from 'express';
+import cors from 'cors';
 // Setting up swagger
 import swaggerJsDoc from 'swagger-jsdoc';
 import { serve, setup } from 'swagger-ui-express';
@@ -22,9 +23,9 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 const app = express();
-
 app.use(json());
 app.use(urlencoded({ extended: false }));
+app.use(cors());
 app.use("/docs", serve, setup(swaggerDocs));
 app.use(routes);
 
