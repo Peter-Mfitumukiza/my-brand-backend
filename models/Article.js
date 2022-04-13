@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const schema = mongoose.Schema({
     title: String,
@@ -7,10 +7,15 @@ const schema = mongoose.Schema({
     cover: String,
     publish: Boolean,
     enableComments: Boolean,
+    comments:[],
+    likes:{
+        type: Number,
+        default: 0    
+    },
     createdAt: {
         type: Date,
         default: Date.now()
     }
 })
 
-module.exports = mongoose.model("article", schema);
+export default mongoose.model("article", schema);

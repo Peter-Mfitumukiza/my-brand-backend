@@ -1,13 +1,31 @@
-require('dotenv').config();
-require('./models/db');
-
-const express = require('express');
-const routes = require('./routes');
+import {config} from 'dotenv';
+config({path: './.env'});
+import './models/db.js';
+import routes from './routes.js';
+import express, { json, urlencoded } from 'express';
+// Setting up swagger
+import swaggerJsDoc from 'swagger-jsdoc';
+import { serve, setup } from 'swagger-ui-express';
+const swaggerOptions = {
+    swaggerDefinition:{
+        info:{
+            title:"My brand backend API",
+            description: "This is a backend api for my portifolio",
+            contact:{
+                name: "Peter"
+            },
+            servers:["http://localhost:3000"]
+        }
+    },
+    apis: ["routes.js"]
+}
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
+app.use("/docs", serve, setup(swaggerDocs));
 app.use(routes);
 
 const port  = process.env.PORT || 4000;
