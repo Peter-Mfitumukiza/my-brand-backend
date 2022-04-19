@@ -8,10 +8,7 @@ const schema = mongoose.Schema({
     publish: Boolean,
     enableComments: Boolean,
     comments:[],
-    likes:{
-        type: Number,
-        default: 0    
-    },
+    likes:[],
     createdAt: {
         type: Date,
         default: Date.now()

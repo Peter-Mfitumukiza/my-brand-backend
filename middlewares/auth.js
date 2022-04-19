@@ -10,7 +10,7 @@ function auth(req,res,next){
     try {
         const decoded = verify(token.split('Bearer ')[1], process.env.JWT_KEY)
         //add user to the request body
-        req.user = decoded
+        req.body.user = decoded
         next()
     } catch (err) {
        return  res.send({status:"error", message:'invalid token'}).status(400)
