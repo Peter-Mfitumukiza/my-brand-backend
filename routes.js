@@ -4,6 +4,8 @@ import { getArticles, getSingleArticle,
         saveArticle, updateArticle, 
         deleteArticle, comment } from './controllers/articleController.js';
 import { getUsers, login, register } from './controllers/userController.js';
+import { validateArticle, validateMessage, 
+        validateUser, validateLogin, validateComment } from './utils/validations.js';
 import auth from './middlewares/auth.js';
 
 const router = express.Router();
@@ -44,7 +46,7 @@ router.get("/messages", getMessages);
  *       '201': 
  *          description: message created successfully       
 */
-router.post("/messages", postMessages);
+router.post("/messages", validateMessage ,postMessages);
 
 /**
  * @swagger
@@ -98,9 +100,9 @@ router.get("/articles/:id", getSingleArticle);
  *       '201': 
  *          description: message created successfully       
 */
-router.post("/articles", saveArticle);
+router.post("/articles", validateArticle, saveArticle);
 
-router.patch("/articles/:id", updateArticle);
+router.patch("/articles/:id", validateArticle, updateArticle);
 /**
  * @swagger
  * /articles/{id}:
@@ -119,10 +121,10 @@ router.patch("/articles/:id", updateArticle);
 */
 router.delete("/articles/:id", deleteArticle);
 
-router.post("/articles/comment", auth, comment);
+router.post("/articles/comment", auth, validateComment, comment);
 
 router.get("/users", getUsers);
-router.post("/users/login", login);
-router.post("/users/register", register);
+router.post("/users/login", validateLogin, login);
+router.post("/users/register", validateUser, register);
 
 export default router;

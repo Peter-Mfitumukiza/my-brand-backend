@@ -31,6 +31,8 @@ app.use(routes);
 
 const port  = process.env.PORT || 4000;
 
-app.listen(port, ()=>{
+const server = app.listen(port, ()=>{
     console.log(`Server running on port ${port}......`);
 })
+
+export default server;
