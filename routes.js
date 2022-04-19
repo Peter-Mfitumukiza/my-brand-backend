@@ -2,10 +2,10 @@ import express from 'express';
 import { getMessages, postMessages } from './controllers/messageController.js';
 import { getArticles, getSingleArticle, 
         saveArticle, updateArticle, 
-        deleteArticle, comment } from './controllers/articleController.js';
+        deleteArticle, comment, like } from './controllers/articleController.js';
 import { getUsers, login, register } from './controllers/userController.js';
-import { validateArticle, validateMessage, 
-        validateUser, validateLogin, validateComment } from './utils/validations.js';
+import { validateArticle, validateMessage, validateLike,
+        validateUser, validateLogin, validateComment } from './middlewares/validations.js';
 import auth from './middlewares/auth.js';
 
 const router = express.Router();
@@ -102,6 +102,8 @@ router.get("/articles/:id", getSingleArticle);
 */
 router.post("/articles", validateArticle, saveArticle);
 
+router.patch("/articles/comment", auth, validateComment, comment);
+router.patch("/articles/like", auth, validateLike, like);
 router.patch("/articles/:id", validateArticle, updateArticle);
 /**
  * @swagger
@@ -121,7 +123,7 @@ router.patch("/articles/:id", validateArticle, updateArticle);
 */
 router.delete("/articles/:id", deleteArticle);
 
-router.post("/articles/comment", auth, validateComment, comment);
+
 
 router.get("/users", getUsers);
 router.post("/users/login", validateLogin, login);

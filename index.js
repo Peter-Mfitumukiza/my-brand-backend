@@ -1,6 +1,6 @@
 import {config} from 'dotenv';
 config({path: './.env'});
-import './models/db.js';
+import './utils/db.js';
 import routes from './routes.js';
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';

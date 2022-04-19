@@ -55,10 +55,9 @@ export const validateUser = async(req,res,next) =>{
 
 export const validateComment = async(req,res,next) => {
     const schema = new Joi.object({
-        name: Joi.string().max(40).min(3).required(),
         content: Joi.string().max(500).required(),
         articleId: Joi.string().max(50).required(),
-        userId: Joi.string().max(50).required()
+        user: Joi.object()
     })
 
     const { error } = await schema.validate(req.body);
@@ -76,6 +75,20 @@ export const validateLogin = async(req, res, next) => {
         password: Joi.string().max(255).min(6).required()
     })
     
+    const { error } = await schema.validate(req.body);
+        
+    if(error){
+        return res.status(400).send({status:"error", message: error.details[0].message});
+    } else{
+        return next();
+    }
+}
+export const validateLike = async(req,res,next) =>{
+    const schema = new Joi.object({
+        articleId: Joi.string().max(50).required(),
+        user: Joi.object()
+    })
+
     const { error } = await schema.validate(req.body);
         
     if(error){
