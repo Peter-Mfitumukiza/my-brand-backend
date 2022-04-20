@@ -24,7 +24,7 @@ export const getUsers = async(req,res)=>{
 
 export const login = async(req,res)=>{
     let user = await User.findOne({email:req.body.email});
-    if(!user) return res.send({ status: "error", message: "Invalid email or password" }).status(400);
+    if(!user) return res.send({ status: "error", message: "Invalid email or password" }).status(401);
 
     const validPassword = await compare(req.body.password,user.password)
     if(!validPassword)
@@ -35,5 +35,5 @@ export const login = async(req,res)=>{
             email:user.email,
             image:user.image
         }, process.env.JWT_KEY);
-    return res.send({ status: "success", data: token });
+    return res.send({ status: "success", data: token }).status(200);
 }

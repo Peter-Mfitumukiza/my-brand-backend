@@ -7,6 +7,7 @@ const schema = mongoose.Schema({
     cover: String,
     publish: Boolean,
     enableComments: Boolean,
+    user: Object,
     comments:[],
     likes:[],
     createdAt: {

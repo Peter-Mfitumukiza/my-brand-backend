@@ -24,7 +24,8 @@ export const validateArticle = async(req,res,next)=>{
         content: Joi.string().max(2000).min(100).required(),
         cover: Joi.string().uri().required(),
         publish: Joi.bool().required(),
-        enableComments: Joi.bool().required()
+        enableComments: Joi.bool().required(),
+        user: Joi.object()
     });
 
     const { error } = await schema.validate(req.body);
