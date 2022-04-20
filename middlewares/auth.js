@@ -6,14 +6,14 @@ const { verify } = jwt;
 function auth(req,res,next){
     const token = req.header('Authorization')
     //console.log('Token......',token.split('Bearer ')[1])
-    if(!token) return res.send({ status:"error", message:"Please login first" }).status(401)
+    if(!token) return res.status(401).send({ status:"error", message:"Please login first" })
     try {
         const decoded = verify(token.split('Bearer ')[1], process.env.JWT_KEY)
         //add user to the request body
         req.body.user = decoded
         next()
     } catch (err) {
-       return  res.send({status:"error", message:'invalid token'}).status(400)
+       return  res.status(400).send({status:"error", message:'invalid token'})
     }
 }
 
