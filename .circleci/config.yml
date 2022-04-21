@@ -28,10 +28,10 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-      - run:
+      - run: # run tests
           name: test
-          command: npm test
-      -run:
+          command: npm run test
+      - run: # run code coverage report
           name: code-coverage
           command: npm run coverage
       - coveralls/upload
