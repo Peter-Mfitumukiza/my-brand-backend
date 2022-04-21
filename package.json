@@ -14,9 +14,9 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha test/*.js --timeout 30000 -c --require @babel/register --exit"
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha test/*.js --timeout 30000 -c --require @babel/register --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "coverage": "nyc report --reporter=text-lcov | coveralls",
   "devDependencies": {
     "@babel/register": "^7.17.7",
     "chai": "^4.3.6",
