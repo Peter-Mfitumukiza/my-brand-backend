@@ -1,13 +1,13 @@
 version: 2.1
 orbs: 
   coveralls: coveralls/coveralls@1.0.6
-  node: circleci/node@1.1.6
+  win: circleci/windows@4.1
 
 jobs:
   build:
-    working_directory: C:\Users\mfite\OneDrive\Documents\ATLP\my-brand-backend
     executor:
-      name: node/default
+      name: win/default
+    working_directory: C:\Users\mfite\OneDrive\Documents\ATLP\my-brand-backend
     environment:
       NODE_ENV: test
       DATABASE_URL: process.env.DB_CONN_STRING
