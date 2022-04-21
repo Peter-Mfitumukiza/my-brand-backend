@@ -1,5 +1,5 @@
-import {config} from 'dotenv';
-config({path: './.env'});
+import dotenv from 'dotenv';
+dotenv.config({path: './.env'});
 import mongoose from 'mongoose';
 
 mongoose.connect(process.env.DB_CONN_STRING)

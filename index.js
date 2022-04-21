@@ -1,5 +1,4 @@
-import {config} from 'dotenv';
-config({path: './.env'});
+import dotenv from 'dotenv';
 import './utils/db.js';
 import routes from './routes.js';
 import express, { json, urlencoded } from 'express';
@@ -21,7 +20,7 @@ const swaggerOptions = {
     apis: ["routes.js"]
 }
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
+dotenv.config();
 const app = express();
 app.use(json());
 app.use(urlencoded({ extended: false }));

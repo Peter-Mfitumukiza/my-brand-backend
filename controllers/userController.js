@@ -1,5 +1,5 @@
-import {config} from 'dotenv';
-config({path: './.env'});
+import dotenv from 'dotenv';
+dotenv.config({path: './.env'});
 import { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
