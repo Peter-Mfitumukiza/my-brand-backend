@@ -165,7 +165,7 @@ describe("Articles API", ()=>{
                 publish: false,
                 enableComments: false
             };
-            const id = "625fdc5a049ac094065e3cd2";
+            const id = "625fb62aae82321abc0dc2bb";
             const token ="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjVmZDgxNDgwZmZiNTNlOGRlZmU0ZmQiLCJuYW1lIjoiTWZpdHVtdWtpemEgUGV0ZXIiLCJlbWFpbCI6InJhbmRvbUBnbWFpbC5jb20iLCJpbWFnZSI6Imh0dHBzOi8vcmFuZG9tLWltYWdlL2ltYWdlLnBuZyIsImlhdCI6MTY1MDQ0ODQyMn0.q4ZjsX9RWhPsLa6BsvmrfwuHkh3qlCwa2XZJdJr9WUg"
             chai.request(server)
                 .patch("/articles/" + id)
@@ -283,7 +283,7 @@ describe("Articles API", ()=>{
         it("It should comment on an existing article", done =>{
             const comment = {
                 content: "That was a great one.",
-                articleId: "625fdc5a049ac094065e3cd2"
+                articleId: "625fb62aae82321abc0dc2bb"
             };
             const token ="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjVmZDgxNDgwZmZiNTNlOGRlZmU0ZmQiLCJuYW1lIjoiTWZpdHVtdWtpemEgUGV0ZXIiLCJlbWFpbCI6InJhbmRvbUBnbWFpbC5jb20iLCJpbWFnZSI6Imh0dHBzOi8vcmFuZG9tLWltYWdlL2ltYWdlLnBuZyIsImlhdCI6MTY1MDQ0ODQyMn0.q4ZjsX9RWhPsLa6BsvmrfwuHkh3qlCwa2XZJdJr9WUg"
             chai.request(server)
@@ -379,7 +379,7 @@ describe("Articles API", ()=>{
     describe("PATCH /articles/like", ()=>{
         it("It should like an article", done =>{
             const like = {
-                articleId: "625fdc5a049ac094065e3cd2"
+                articleId: "625fb62aae82321abc0dc2bb"
             };
             const token ="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjVmZDgxNDgwZmZiNTNlOGRlZmU0ZmQiLCJuYW1lIjoiTWZpdHVtdWtpemEgUGV0ZXIiLCJlbWFpbCI6InJhbmRvbUBnbWFpbC5jb20iLCJpbWFnZSI6Imh0dHBzOi8vcmFuZG9tLWltYWdlL2ltYWdlLnBuZyIsImlhdCI6MTY1MDQ0ODQyMn0.q4ZjsX9RWhPsLa6BsvmrfwuHkh3qlCwa2XZJdJr9WUg"
             chai.request(server)
@@ -431,7 +431,7 @@ describe("Articles API", ()=>{
 
         it("It should not like an article without a token", done =>{
             const like = {
-                articleId: "625fdc5a049ac094065e3cd2"
+                articleId: "625fb62aae82321abc0dc2bb"
             };
             chai.request(server)
                 .patch("/articles/like")
