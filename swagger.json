@@ -1,0 +1,506 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is the documentation for my portfolio APIs",
+      "version": "1.0.0",
+      "title": "Mfitumukiza Peter",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "email": "mfitep6@gmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "host": "backend-mybrand.herokuapp.com",
+    "tags": [
+      {
+        "name": "Articles",
+        "description": "All APIs related to articles"
+      },
+      {
+        "name": "Users",
+        "description": "All APIs related to users"
+      },
+      {
+        "name": "Messages",
+        "description": "All APIs related to contact messages"
+      }
+    ],
+    "schemes": ["https"],
+    "paths": {
+      "/articles": {
+        "get": {
+          "tags": ["Articles"],
+          "summary": "Get all articles",
+          "description": "Get all articles",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/articles/{id}": {
+        "get": {
+            "tags": ["Articles"],
+            "summary": "Get single article",
+            "description": "Get single article",
+            "produces": ["application/json"],
+            "parameters": [
+              {
+                "in": "path",
+                "name": "id",
+                "description": "article id",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "400": {
+                "description": "bad request"
+              }
+            }
+          }
+      },
+      "/articles/new": {
+        "post": {
+          "tags": ["Articles"],
+          "summary": "Create a new article",
+          "description": "Create a new article",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "The article to be saved",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "cover": {
+                    "type": "string"
+                  },
+                  "publish": {
+                    "type": "boolean"
+                  },
+                  "enableComments": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+              {
+                "in": "header",
+                "name": "Authorization",
+                "description": "bearer token for user authorization",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+          ],
+          "responses": {
+            "201": {
+              "description": "article saved successfully"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "401":{
+                "description": "Unauthorized"
+            }
+          }
+        }
+      },
+      "/articles/delete/{id}": {
+        "delete": {
+          "tags": ["Articles"],
+          "summary": "Deleting an article",
+          "description": "Deleting an article",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "the id of the article",
+              "required": true
+            },
+            {
+                "in": "header",
+                "name": "Authorization",
+                "description": "bearer token for user authorization",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "404":{
+                "description":"article does not exist"
+            }
+          }
+        }
+      },
+      "/articles/like/": {
+        "patch": {
+          "tags": ["Articles"],
+          "summary": "Liking an article",
+          "description": "Liking an article",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+                "in":"body",
+                "name":"body",
+                "description":"the article to be liked",
+                "required":true,
+                "schema":{
+                    "type":"object",
+                    "properties":{
+                        "articleId":{
+                            "type":"string"
+                        }
+                    }
+                }
+            },
+            {
+                "in": "header",
+                "name": "Authorization",
+                "description": "bearer token for user authorization",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "404":{
+                "description":"article does not exist"
+            }
+          }
+        }
+      },
+      "/articles/comment/": {
+        "patch": {
+          "tags": ["Articles"],
+          "summary": "Comment on an article",
+          "description": "Comment on an article",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "comment array that needs to be added to the database",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "articleId": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+                "in": "header",
+                "name": "Authorization",
+                "description": "bearer token for user authorization",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "404":{
+                "description":"article doesn't exist"
+            }
+          }
+        }
+      },
+      
+      "/users/register": {
+        "post": {
+          "tags": ["Users"],
+          "summary": "Register new user",
+          "description": "Register new user",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User to be registered",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name":{
+                      "type":"string"
+                  },  
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "image":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User registered successfully"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "401":{
+                "description": "Unauthorized"
+            }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "tags": ["Users"],
+          "summary": "Login",
+          "description": "User login",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Login",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "401":{
+                "description":"Invalid email or password"
+            }
+          }
+        }
+      },
+      "/api/users/": {
+        "patch": {
+          "tags": ["Users"],
+          "summary": "Update user profile",
+          "description": "Update user profile",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Updated user profile",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "image": {
+                    "type": "string",
+                    "required": false
+                  }
+                }
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "bearer token for user authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "bad request"
+            },
+            "404": {
+              "description": "Not found"
+            }
+          }
+        }
+      },
+      "/users": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Get all users",
+          "description": "Get all users",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            }
+          }
+        }
+      },
+      "/users/{id}": {
+        "get": {
+            "tags": ["Users"],
+            "summary": "Get a single user",
+            "description": "Get a single user",
+            "produces": ["application/json"],
+            "parameters": [
+              {
+                "in": "path",
+                "name": "id",
+                "description": "user id",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "successful operation"
+              },
+              "404": {
+                "description": "not found"
+              }
+            }
+          }
+      },
+      "/messages/new": {
+        "post": {
+          "tags": ["Messages"],
+          "summary": "send a message",
+          "description": "send a message",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Send a Message",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "bad request"
+            }
+          }
+        }
+      },
+      "/messages": {
+        "get": {
+          "tags": ["Messages"],
+          "summary": "Get all messages",
+          "description": "get all messages",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Authorization",
+              "description": "bearer token for user authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+              
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            }
+          }
+        }
+      }
+  }}
