@@ -16,9 +16,9 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cors());
 app.use("/docs", serve, setup(swaggerDocument));
-app.use("/users", userRoutes);
-app.use("/messages", messageRoutes);
-app.use("/articles", articleRoutes);
+app.use(userRoutes);
+app.use(messageRoutes);
+app.use(articleRoutes);
 
 const port  = process.env.PORT || 4000;
 
