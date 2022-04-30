@@ -11,7 +11,7 @@ export const validateMessage = async(req, res, next)=>{
     const { error } = await schema.validate(req.body);
         
     if(error){
-        return res.status(400).send({status:"error", message: error.details[0].message});
+        return res.status(400).json({status:"error", message: error.details[0].message});
     } else{
         return next();
     }
@@ -31,7 +31,7 @@ export const validateArticle = async(req,res,next)=>{
     const { error } = await schema.validate(req.body);
         
     if(error){
-        return res.status(400).send({status:"error", message: error.details[0].message});
+        return res.status(400).json({status:"error", message: error.details[0].message});
     } else{
         return next();
     }
@@ -48,7 +48,7 @@ export const validateUser = async(req,res,next) =>{
     const { error } = await schema.validate(req.body);
         
     if(error){
-        return res.status(400).send({status:"error", message: error.details[0].message});
+        return res.status(400).json({status:"error", message: error.details[0].message});
     } else{
         return next();
     }
@@ -64,7 +64,7 @@ export const validateComment = async(req,res,next) => {
     const { error } = await schema.validate(req.body);
         
     if(error){
-        return res.status(400).send({status:"error", message: error.details[0].message});
+        return res.status(400).json({status:"error", message: error.details[0].message});
     } else{
         return next();
     }
@@ -79,7 +79,7 @@ export const validateLogin = async(req, res, next) => {
     const { error } = await schema.validate(req.body);
         
     if(error){
-        return res.status(400).send({status:"error", message: error.details[0].message});
+        return res.status(400).json({status:"error", message: error.details[0].message});
     } else{
         return next();
     }
@@ -93,7 +93,7 @@ export const validateLike = async(req,res,next) =>{
     const { error } = await schema.validate(req.body);
         
     if(error){
-        return res.status(400).send({status:"error", message: error.details[0].message});
+        return res.status(400).json({status:"error", message: error.details[0].message});
     } else{
         return next();
     }

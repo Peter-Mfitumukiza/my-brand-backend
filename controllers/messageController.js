@@ -2,7 +2,7 @@ import Message from '../models/Message.js';
 
 export const getMessages = async(req, res)=>{
     let posts = await Message.find();
-    res.send({status:"success", data: posts});
+    res.json({status:"success", data: posts});
 }
 
 export const postMessages = async(req, res)=>{
@@ -10,5 +10,5 @@ export const postMessages = async(req, res)=>{
         ...req.body
     });
     await post.save();
-    res.send({ status: "success", data: post });
+    res.json({ status: "success", data: post });
 }

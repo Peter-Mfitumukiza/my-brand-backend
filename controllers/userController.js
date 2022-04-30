@@ -9,31 +9,31 @@ const { sign } = jwt;
 
 export const register = async(req,res)=>{
     let user = await User.findOne({email:req.body.email});
-    if(user) return res.send({status:"error", message: "Email already taken!"});
+    if(user) return res.json({status:"error", message: "Email already taken!"});
 
     let newUser = new User({ ...req.body });
     newUser.password = await hashPassword(newUser.password);
     await newUser.save();
-    res.send({ status:"success", data: newUser });
+    res.json({ status:"success", data: newUser });
 }
 
 export const getUsers = async(req,res)=>{
     let users = await User.find();
-    return res.send({ status : "success", data: users });
+    return res.json({ status : "success", data: users });
 }
 
 export const login = async(req,res)=>{
     let user = await User.findOne({email:req.body.email});
-    if(!user) return res.send({ status: "error", message: "Invalid email or password" }).status(401);
+    if(!user) return res.json({ status: "error", message: "Invalid email or password" }).status(401);
 
     const validPassword = await compare(req.body.password,user.password)
     if(!validPassword)
-    return res.send('invalid email or password').status(401)
+    return res.json('invalid email or password').status(401)
     const token  =sign(
         {_id:user._id,
             name:user.name,
             email:user.email,
             image:user.image
         }, process.env.JWT_KEY);
-    return res.send({ status: "success", data: token }).status(200);
+    return res.json({ status: "success", data: user, token }).status(200);
 }
